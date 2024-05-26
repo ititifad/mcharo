@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .form-wrap select.form-input {
+      background-color: #fff; /* Set the background color to white */
+      color: #000; /* Set the text color to black */
+      padding: 10px; /* Add some padding */
+      border: 1px solid #ccc; /* Add a border */
+      border-radius: 4px; /* Add some border radius */
+  }
+
+  .form-wrap select.form-input option {
+      color: #000; /* Set the text color for options to black */
+  }
+</style>
+<section class="section swiper-container swiper-slider swiper-slider-1" data-loop="true" data-autoplay="3892" data-simulate-touch="false">
+  <div class="swiper-wrapper text-center">
+      {% for slide in slides %}
+      <div class="swiper-slide context-dark" data-slide-bg="{{ slide.background_image.url }}">
+          <div class="swiper-slide-caption section-md">
+              <div class="container">
+                  <div class="row justify-content-lg-center">
+                      <div class="col-lg-8">
+                          <h5 data-caption-animate="fadeInUp" data-caption-delay="100">{{ slide.caption_subheading }}</h5>
+                          <h1 data-caption-animate="fadeInUp" data-caption-delay="200">{{ slide.caption_heading }}</h1>
+                          <div class="button-wrap" data-caption-animate="fadeInUp" data-caption-delay="300">
+                              <a class="button button-modern button-custom-size-1" href="{{ slide.button_link }}">{{ slide.button_text }}</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+  <!--Swiper Pagination-->
+  <div class="swiper-pagination"></div>
+</section>
+
+<section class="parallax-container section-lg text-center">
+  <div class="parallax-content">
+      <div class="container">
+          <h6 class="text-gray-600">{{ featured_event.event_location }} - {{ featured_event.event_date|date:"F d, Y" }}</h6>
+          <h2>{{ featured_event.event_title }}</h2>
+          <div class="row justify-content-center">
+              <div class="col-lg-11">
+                  <div class="post-event">
+                      <div data-time="{{ featured_event.countdown_time|date:"d M Y H:i" }}"></div>
+                      <img src="{{ featured_event.event_image.url }}" alt="{{ featured_event.event_title }}" width="571" height="156"/>
+                      <a class="button button-primary button-lg" href="{{ featured_event.button_link }}">{{ featured_event.button_text }}</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<section class="section section-lg bg-default text-center">
+  <div class="container">
+    <h6 class="text-gray-600">book now our quality services</h6>
+    <h2>our services</h2>
+  <!-- Owl Carousel-->
+  <div class="owl-carousel owl-carousel-bio" data-items="1" data-sm-items="1" data-md-items="2" data-lg-items="2" data-xl-items="3" data-xxl-items="4" data-autoplay="false" data-nav="true" data-dots="true" data-loop="true" data-mouse-drag="false" data-stage-padding="0" data-margin="0" data-nav-text="[&quot;prev&quot;,&quot;next&quot;]">
+    {% for service in services %}
+    <div class="box-bio">
+      
+      <div class="box-bio-year"></div>
+      <div class="box-bio-body">
+        <h5 class="box-bio-title">{{service.title}}</h5>
+        <p class="box-bio-text">{{service.description}}.</p>
+      </div>
+      
+    </div>
+    {% endfor %}
+  </div>
+  </div>
+</section>
+
+<section class="section section-lg bg-default text-center">
+  <div class="container">
+      <h6 class="text-gray-600">latest videos from our events</h6>
+      <h2>recent videos</h2>
+      <!--Bootstrap tabs-->
+      <div class="tabs-custom tabs-vertical tabs-video" id="tabs-2">
+          <!--Tab panes-->
+          <div class="tab-content">
+              {% for video in videos %}
+              <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="tabs-2-{{ forloop.counter }}">
+                  <div class="entry-video embed-responsive embed-responsive-16by9">
+                      <iframe width="886" height="668" src="{{ video.youtube_url }}" allowfullscreen=""></iframe>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+          <div class="scroll-wrap">
+              <!--Nav tabs-->
+              <ul class="nav nav-tabs">
+                  {% for video in videos %}
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link {% if forloop.first %}active{% endif %}" href="#tabs-2-{{ forloop.counter }}" data-toggle="tab">
+                          <div class="nav-video">
+                              <figure class="nav-video-figure">
+                                  <img src="{{ video.thumbnail_image.url }}" alt="{{ video.thumbnail_alt }}" width="140" height="40"/>
+                              </figure>
+                              <h6 class="nav-video-title">{{ video.title }}</h6>
+                          </div>
+                      </a>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+      </div>
+  </div>
+</section>
+
+<section class="section section-lg bg-default text-center" data-lightgallery="group">
+  <div class="container">
+  <h6 class="text-gray-600">latest photos from our events</h6>
+  <h2>recent photos</h2>
+  <div class="row no-gutters">
+      {% for item in gallery_items %}
+      <div class="col-lg-3 col-sm-6">
+          <div class="thumbnail-classic">
+              <a class="thumbnail-classic-figure" data-lightgallery="item" href="{{ item.original_image.url }}">
+                  <img src="{{ item.thumbnail_image.url }}" alt="{{ item.title }}" width="480" height="175"/>
+              </a>
+              <div class="thumbnail-classic-caption">
+                  <h5 class="thumbnail-classic-title">{{ item.title }}</h5>
+                  <time class="thumbnail-classic-time" datetime="{{ item.date|date:'Y-m-d' }}">{{ item.date|date:'M d, Y' }}</time>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+  </div>
+</section>
+
+<section class="section section-xl bg-default text-center">
+  <div class="container">
+      <h6 class="text-gray-600">from my blog</h6>
+      <h2>latest news</h2>
+      <div class="row row-125">
+          {% for post in blog_posts %}
+          <div class="col-md-6 col-lg-4">
+              <article class="post-classic">
+                  <figure class="post-classic-figure">
+                      <a href="{% url 'detail' post.id %}"><img src="{{ post.image.url }}" alt="{{ post.title }}" width="346" height="130"/></a>
+                  </figure>
+                  <div class="post-classic-content">
+                      <time class="post-classic-time" datetime="{{ post.date|date:'Y-m-d' }}">{{ post.date|date:'M d, Y' }}</time>
+                      <h5 class="post-classic-title"><a href="{% url 'detail' post.id %}">{{ post.title }}</a></h5>
+                      <a class="post-classic-link" href="{% url 'detail' post.id %}">read more</a>
+                  </div>
+              </article>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</section>
+  
+<section class="parallax-container parallax-overlay-01" data-parallax-img="/media/images/bg-footer-1920x1285.jpg">
+  {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+  {% endif %}
+  <div class="parallax-content">
+    <div class="section-sm prefooter-custom">
+      <div class="container">
+        <div class="row row-30">
+          <div class="col-lg-6">
+            <!--RD Mailform-->
+                      <!--RD Mailform-->
+          <form method="post" action="{% url 'send_sms' %}">
+            {% csrf_token %}
+            <div class="row row-40">
+              <div class="col-lg-4">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-name">Name</label>
+                  <input class="form-input" id="contact-name" type="text" name="name" required>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-phone">Phone</label>
+                  <input class="form-input" id="contact-phone" type="text" name="phone" required>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-email">E-Mail</label>
+                  <input class="form-input" id="contact-email" type="email" name="email" required>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-wrap">
+                    <label class="form-label" for="contact-location">Location</label>
+                    <select class="form-input" id="contact-location" name="location" required>
+                        <option value="" disabled selected>Select Location</option>
+                        <option value="Geita">Geita</option>
+                        <option value="Mwanza">Mwanza</option>
+                        <option value="Shinyanga">Shinyanga</option>
+                        <option value="Kagera">Kagera</option>
+                        <!-- Add more locations as needed -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-wrap">
+                    <label class="form-label" for="contact-service">Service</label>
+                    <select class="form-input" id="contact-service" name="service" required>
+                        <option value="" disabled selected>Select Service</option>
+                        <option value="Service A">Harusi</option>
+                        <option value="Service B">Mahafali</option>
+                        <option value="Service C">Send-off</option>
+                        <option value="Service D">Birthday Party</option>
+                        <!-- Add more services as needed -->
+                    </select>
+                </div>
+            </div>
+              <div class="col-lg-12">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-message">Message</label>
+                  <textarea class="form-input" id="contact-message" name="message" required></textarea>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-wrap">
+                  <button class="button button-primary" type="submit">Send message</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          </div>
+          <div class="col-lg-6">
+            <h3>Upcoming events</h3>
+            <div class="box-event-wrap scroll-wrap">
+              {% for event in events %}
+                <div class="box-event novi-bg">
+                  <div class="box-event-date-wrap">
+                    <h3 class="box-event-date-day">{{ event.date|date:"d" }}</h3>
+                    <p class="box-event-date-month">{{ event.date|date:"M" }}</p>
+                  </div>
+                  <div class="box-event-text-wrap">
+                    <h5 class="box-event-text-title"><a href="#">{{ event.title }}</a></h5>
+                    <ul class="box-event-text-location">
+                      <li>{{ event.location }}</li>
+                      <li>{{ event.city }}</li>
+                      <li>{{ event.country }}</li>
+                    </ul>
+                  </div>
+                  <div class="box-event-button-wrap">
+                    <a class="button button-outline button-sm" href="{{ event.ticket_url }}">buy tickets</a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+{% endblock %}
+    
+    

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .form-wrap select.form-input {
+      background-color: #fff; /* Set the background color to white */
+      color: #000; /* Set the text color to black */
+      padding: 10px; /* Add some padding */
+      border: 1px solid #ccc; /* Add a border */
+      border-radius: 4px; /* Add some border radius */
+  }
+
+  .form-wrap select.form-input option {
+      color: #000; /* Set the text color for options to black */
+  }
+</style>
+      <!-- Breadcrumbs-->
+      <section class="breadcrumbs-custom bg-image context-dark" style="background-image: url(/media/images/bg-breadcrumbs-01-1920x480.jpg);">
+        <div class="container">
+          <h2 class="breadcrumbs-custom-title">Contacts</h2>
+        </div>
+        <ul class="breadcrumbs-custom-path">
+          <li><a href="/">Home</a></li>
+          <li class="active">Contacts</li>
+        </ul>
+      </section>
+      <section class="section section-md bg-default">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+              <h3>Contact details</h3>
+              <p class="text-gray-600">On this page you can find all necessary contacts to get in touch with us if you would like to collaborate, book a live event or ask a question.</p>
+            </div>
+          </div>
+          <div class="row row-50 justify-lg-content-center row-custom-border">
+            <div class="col-lg-4 col-md-6">
+              <div class="box-icon-classic">
+                <div class="icon novi-icon icon-primary icon-lg fl-bigmug-line-cellphone55"></div>
+                <h5 class="box-icon-classic-title">Phones</h5>
+                <ul class="box-icon-classic-list">
+                  <li><a href="tel:0713597141">Phone 01: +255 (713) 597–141</a></li>
+                  <li><a href="tel:0767597141">Phone 02: +255 (767) 597–141</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="box-icon-classic">
+                <div class="icon novi-icon icon-primary icon-lg fl-bigmug-line-big104"></div>
+                <h5 class="box-icon-classic-title">address</h5>
+                <ul class="box-icon-classic-list">
+                  <li><a href="#">Mtaa wa Mission, <br> Geita Mjini,  Tanzania</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="box-icon-classic">
+                <div class="icon novi-icon icon-primary icon-md fl-bigmug-line-email64"></div>
+                <h5 class="box-icon-classic-title">e-mails</h5>
+                <ul class="box-icon-classic-list">
+                  <li><a href="mailto:mcharoentertainment@gmail.com">mcharoentertainment@gmail.com</a></li>
+                  <li><a href="mailto:#">mcharoentertainment2@gmail.com</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--Mailform-->
+      <section class="section section-lg bg-default">
+        {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+              <h3>Get in touch with us</h3>
+              <p class="text-gray-600">Feel free to drop a line or ask a question using the contact form below.</p>
+            </div>
+          </div>
+          <!--RD Mailform-->
+          <form method="post" action="{% url 'send_sms' %}">
+            {% csrf_token %}
+            <div class="row row-40">
+              <div class="col-lg-4">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-name">Name</label>
+                  <input class="form-input" id="contact-name" type="text" name="name" required>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-phone">Phone</label>
+                  <input class="form-input" id="contact-phone" type="text" name="phone" required>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-email">E-Mail</label>
+                  <input class="form-input" id="contact-email" type="email" name="email" required>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-wrap">
+                    <label class="form-label" for="contact-location">Location</label>
+                    <select class="form-input" id="contact-location" name="location" required>
+                        <option value="" disabled selected>Select Location</option>
+                        <option value="Geita">Geita</option>
+                        <option value="Mwanza">Mwanza</option>
+                        <option value="Shinyanga">Shinyanga</option>
+                        <option value="Kagera">Kagera</option>
+                        <!-- Add more locations as needed -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-wrap">
+                    <label class="form-label" for="contact-service">Service</label>
+                    <select class="form-input" id="contact-service" name="service" required>
+                        <option value="" disabled selected>Select Service</option>
+                        <option value="Service A">Harusi</option>
+                        <option value="Service B">Mahafali</option>
+                        <option value="Service C">Send-off</option>
+                        <option value="Service D">Birthday Party</option>
+                        <!-- Add more services as needed -->
+                    </select>
+                </div>
+            </div>
+              <div class="col-lg-12">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-message">Message</label>
+                  <textarea class="form-input" id="contact-message" name="message" required></textarea>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-wrap">
+                  <button class="button button-primary" type="submit">Send message</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </section>
+
+      
+
+{% endblock %}

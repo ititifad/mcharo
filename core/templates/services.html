@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Breadcrumbs-->
+<section class="breadcrumbs-custom bg-image context-dark" style="background-image: url(/media/images/bg-breadcrumbs-02-1920x480.jpg);">
+    <div class="container">
+      <h2 class="breadcrumbs-custom-title">Our Services</h2>
+    </div>
+    <ul class="breadcrumbs-custom-path">
+      <li><a href="/">Home</a></li>
+      <li class="active">Our Services</li>
+    </ul>
+  </section>
+  <section class="section section-xl bg-default text-center">
+    <div class="container">
+        
+        <h2>Our services</h2>
+        <div class="row row-125">
+            {% for post in services %}
+            <div class="col-md-6 col-lg-4">
+                <article class="post-classic">
+                    <figure class="post-classic-figure">
+                        <a href="{{ post.link }}"><img src="{{ post.image.url }}" alt="{{ post.title }}" width="346" height="130"/></a>
+                    </figure>
+                    <div class="post-classic-content">
+                        
+                        <h5 class="post-classic-title"><a href="{{ post.link }}">{{ post.title }}</a></h5>
+                        <p class="post-classic-link">{{ post.description }}</p>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+  </section>
+{% endblock %}

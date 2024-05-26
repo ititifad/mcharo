@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Breadcrumbs-->
+<section class="breadcrumbs-custom bg-image context-dark" style="background-image: url(/media/images/bg-breadcrumbs-02-1920x480.jpg);">
+    <div class="container">
+      <h2 class="breadcrumbs-custom-title">Gallery</h2>
+    </div>
+    <ul class="breadcrumbs-custom-path">
+      <li><a href="/">Home</a></li>
+      <li class="active">Gallery</li>
+    </ul>
+  </section>
+  <section class="section section-lg bg-default text-center">
+    <div class="container">
+        <h6 class="text-gray-600">latest videos from our events</h6>
+        <h2>recent videos</h2>
+        <!--Bootstrap tabs-->
+        <div class="tabs-custom tabs-vertical tabs-video" id="tabs-2">
+            <!--Tab panes-->
+            <div class="tab-content">
+                {% for video in videos %}
+                <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="tabs-2-{{ forloop.counter }}">
+                    <div class="entry-video embed-responsive embed-responsive-16by9">
+                        <iframe width="886" height="668" src="{{ video.youtube_url }}" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="scroll-wrap">
+                <!--Nav tabs-->
+                <ul class="nav nav-tabs">
+                    {% for video in videos %}
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link {% if forloop.first %}active{% endif %}" href="#tabs-2-{{ forloop.counter }}" data-toggle="tab">
+                            <div class="nav-video">
+                                <figure class="nav-video-figure">
+                                    <img src="{{ video.thumbnail_image.url }}" alt="{{ video.thumbnail_alt }}" width="140" height="40"/>
+                                </figure>
+                                <h6 class="nav-video-title">{{ video.title }}</h6>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+  </section>
+  
+  <section class="section" data-lightgallery="group">
+    <div class="row no-gutters">
+        {% for item in gallery_items %}
+        <div class="col-lg-3 col-sm-6">
+            <div class="thumbnail-classic">
+                <a class="thumbnail-classic-figure" data-lightgallery="item" href="{{ item.original_image.url }}">
+                    <img src="{{ item.thumbnail_image.url }}" alt="{{ item.title }}" width="480" height="175"/>
+                </a>
+                <div class="thumbnail-classic-caption">
+                    <h5 class="thumbnail-classic-title">{{ item.title }}</h5>
+                    <time class="thumbnail-classic-time" datetime="{{ item.date|date:'Y-m-d' }}">{{ item.date|date:'M d, Y' }}</time>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  </section>
+{% endblock %}

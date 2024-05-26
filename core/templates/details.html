@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Breadcrumbs-->
+
+  <section class="section section-lg bg-default">
+    <div class="container">
+      <div class="row row-50 flex-md-row-reverse">
+        <div class="col-md-6 text-center">
+          <div class="box-image-1"><img src="{{blog.image.url}}" alt="" width="468" height="276"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box-about">
+            <div class="box-about-title-wrap">
+              <h6 class="box-about-mega-title">mcharo</h6>
+              <h2 class="box-about-title">{{blog.title}}</h2>
+            </div>
+            <h6 class="box-about-post-title">{{blog.date}}</h6>
+            <p style="text-align: justify;">{{blog.content}}</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  
+{% endblock %}
