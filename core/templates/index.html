@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load embed_video_tags %}
 {% block content %}
 <style>
   .form-wrap select.form-input {
@@ -87,7 +87,7 @@
               {% for video in videos %}
               <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="tabs-2-{{ forloop.counter }}">
                   <div class="entry-video embed-responsive embed-responsive-16by9">
-                      <iframe width="886" height="668" src="{{ video.youtube_url }}" allowfullscreen=""></iframe>
+                    {% video video.youtube_url  %}
                   </div>
               </div>
               {% endfor %}
@@ -112,6 +112,7 @@
       </div>
   </div>
 </section>
+
 
 <section class="section section-lg bg-default text-center" data-lightgallery="group">
   <div class="container">

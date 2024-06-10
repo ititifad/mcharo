@@ -1,4 +1,6 @@
 from django.db import models
+from embed_video.fields import EmbedVideoField
+
 
 # Create your models here.
 class Slide(models.Model):
@@ -27,7 +29,8 @@ class FeaturedEvent(models.Model):
     
 class Video(models.Model):
     title = models.CharField(max_length=255)
-    youtube_url = models.URLField()
+    # youtube_url = models.URLField()
+    youtube_url = EmbedVideoField()
     thumbnail_image = models.ImageField(upload_to='thumbnails/')
     thumbnail_alt = models.CharField(max_length=255, blank=True)
 

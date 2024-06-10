@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     "crispy_forms",
     "crispy_bootstrap5",
+    'embed_video'
 ]
 
 MIDDLEWARE = [
